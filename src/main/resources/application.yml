@@ -7,7 +7,7 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    open-in-view: false  # Desactiva la opción open-in-view
+    open-in-view: false  # Desactiva la opciï¿½n open-in-view
     hibernate:
       ddl-auto: update
 

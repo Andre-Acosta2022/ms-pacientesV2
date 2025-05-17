@@ -63,7 +63,8 @@ public class AseguradoraController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateAseguradora(@PathVariable("id") Long id, @Valid @RequestBody aseguradora asegu) {
         Optional<aseguradora> a = aseguradoraService.read(id);
-        if (a.isPresent()) {
+        if (a.isEmpty()) {
+            asegu.setId(id); // Asigna el ID para evitar crear uno nuevo
             return new ResponseEntity<>(aseguradoraService.update(asegu), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -63,7 +63,8 @@ public class ContEmergenciaController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateContactoEmergencia(@PathVariable("id") Long id, @Valid @RequestBody ContactoEmergencia contacto) {
         Optional<ContactoEmergencia> c = contactoEmergenciaService.read(id);
-        if (c.isPresent()) {
+        if (c.isEmpty()) {
+            contacto.setId(id); // Asigna el ID para evitar crear uno nuevo
             return new ResponseEntity<>(contactoEmergenciaService.update(contacto), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

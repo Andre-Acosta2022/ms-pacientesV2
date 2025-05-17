@@ -62,7 +62,8 @@ public class HistorialMedicoController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateHistorial(@PathVariable("id") Long id, @Valid @RequestBody historialmedico historial) {
         Optional<historialmedico> h = historialMedicoService.read(id);
-        if (h.isPresent()) {
+        if (!h.isEmpty()) {
+            historial.setId(id); // Asigna el ID para evitar crear uno nuevo
             return new ResponseEntity<>(historialMedicoService.update(historial), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

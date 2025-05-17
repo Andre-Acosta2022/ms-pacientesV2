@@ -65,10 +65,11 @@ public class PacienteController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateAutor(@PathVariable("id") Long id, @Valid @RequestBody Paciente paci){
+    public ResponseEntity<?> updatePaciente(@PathVariable("id") Long id, @Valid @RequestBody Paciente paci){
 
         Optional<Paciente> c = pacienteService.read(id);
-        if(c.isEmpty()) {
+        if(!c.isEmpty()) {
+            paci.setId(id); // Asigna el ID para evitar crear uno nuevo
             return new ResponseEntity<>(pacienteService.update(paci), HttpStatus.OK);
         }else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

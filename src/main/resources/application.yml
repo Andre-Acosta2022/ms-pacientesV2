@@ -2,7 +2,7 @@ spring:
   application:
     name: ms-pacientes
   datasource:
-    url: jdbc:mysql://localhost:3306/ms_pacientes
+    url: jdbc:mysql://mysql-db:3306/ms_pacientes
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,8 +20,9 @@ spring:
       enabled: false  # Desactiva Spring Cloud Config
 
 server:
-  port: 8081
+  port: 8082
 
 eureka:
   client:
-    enabled: false  # Desactiva Eureka
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/

@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import upeu.edu.pe.ms_paciente.domain.Dto.CitaDTO;
+import upeu.edu.pe.ms_paciente.domain.Dto.FacturaDTO;
+import upeu.edu.pe.ms_paciente.domain.Dto.HistoriaClinicaDTO;
 import upeu.edu.pe.ms_paciente.domain.Paciente;
 import upeu.edu.pe.ms_paciente.service.PacienteService;
+import upeu.edu.pe.ms_paciente.service.impl.PacienteServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +19,7 @@ import java.util.Optional;
 public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
+    private PacienteServiceImpl service;
 
     @GetMapping
     public ResponseEntity<List<Paciente>> readAll() {
@@ -76,4 +81,21 @@ public class PacienteController {
         }
 
     }
+    /**
+     dto cita
+     * */
+    @GetMapping("/{id}/citas")
+    public ResponseEntity<List<CitaDTO>> obtenerCitasPaciente(@PathVariable Long id) {
+        return ResponseEntity.ok(service.obtenerCitasPaciente(id));
+    }
+    @GetMapping("/{id}/historia-clinica")
+    public ResponseEntity<List<HistoriaClinicaDTO>> getHistoriaClinicaPaciente(@PathVariable Long id) {
+        return ResponseEntity.ok(service.obtenerHistoriaClinicaPaciente(id));
+    }
+
+    @GetMapping("/{id}/facturas")
+    public ResponseEntity<List<FacturaDTO>> getFacturasPaciente(@PathVariable Long id) {
+        return ResponseEntity.ok(service.obtenerFacturasPaciente(id));
+    }
+
 }

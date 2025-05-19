@@ -37,4 +37,5 @@ public class AseguradoraServiceImpl implements AseguradoraService {
     public List<aseguradora> readAll() {
         return repository.findAll();
     }
+
 }

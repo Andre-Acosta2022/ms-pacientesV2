@@ -1,4 +1,31 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
+    security:
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri: http://localhost:8088/realms/your-realm/protocol/openid-connect/certs
+            # Asegúrate de reemplazar con la URL correcta del endpoint DE TU autorización (ms-usuario).
+
+    resilience4j:
+      circuitbreaker:
+        configs:
+          default:
+            slidingWindowSize: 10
+            failureRateThreshold: 50
+            waitDurationInOpenState: 60000
+            permittedNumberOfCallsInHalfOpenState: 3
+            minimumNumberOfCalls: 5
+        instances:
+          citaService:
+            baseConfig: default
+          hcService:
+            baseConfig: default
+          facturaService:
+            baseConfig: default
+
+
   application:
     name: ms-pacientes
   datasource:
@@ -28,3 +55,13 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
+    instance:
+      prefer-ip-address: true
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
